@@ -11,7 +11,7 @@ with an **8-deck blackjack shoe** and a **cut card near half penetration**.
 ### Run
 
 ```bash
-python blackjack_counter_app.py
+python3 blackjack_counter_app.py
 ```
 
 ### Controls
@@ -25,4 +25,9 @@ python blackjack_counter_app.py
   - `-` for `-1`
   - `0` for `0`
   - `+` for `+1` (or `=`)
+
+### Tkinter requirement
+
+The UI uses the Python standard `tkinter` module. If your system Python was built
+without Tk support, install the OS package for Tkinter first.
 

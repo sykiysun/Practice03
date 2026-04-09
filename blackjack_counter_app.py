@@ -7,9 +7,17 @@ Run:
 from __future__ import annotations
 
 import random
-import tkinter as tk
 from dataclasses import dataclass
-from tkinter import ttk
+from typing import Any
+
+TK_IMPORT_ERROR: Exception | None = None
+try:
+    import tkinter as tk
+    from tkinter import ttk
+except ModuleNotFoundError as exc:  # pragma: no cover - depends on host runtime packages
+    tk = None  # type: ignore[assignment]
+    ttk = None  # type: ignore[assignment]
+    TK_IMPORT_ERROR = exc
 
 
 RANKS = ["A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"]
@@ -84,7 +92,7 @@ class Shoe:
 
 
 class CountingPracticeApp:
-    def __init__(self, root: tk.Tk) -> None:
+    def __init__(self, root: Any) -> None:
         self.root = root
         self.root.title("Blackjack Card Counting Practice")
         self.root.geometry("560x460")
@@ -278,6 +286,13 @@ class CountingPracticeApp:
 
 
 def main() -> None:
+    if tk is None:
+        print("Tkinter is not installed in this Python environment.")
+        print("Install Tk support, then run: python3 blackjack_counter_app.py")
+        if TK_IMPORT_ERROR is not None:
+            print(f"Details: {TK_IMPORT_ERROR}")
+        return
+
     root = tk.Tk()
     app = CountingPracticeApp(root)
     root.mainloop()
